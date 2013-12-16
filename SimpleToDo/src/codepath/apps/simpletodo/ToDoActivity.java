@@ -8,16 +8,20 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 public class ToDoActivity extends Activity {
+
+    private final static int EDIT_ITEM_REQUEST_CODE = 1;
 
     private List<String> items = new ArrayList<String>();
     private ArrayAdapter<String> itemsAdapter;
@@ -50,6 +54,27 @@ public class ToDoActivity extends Activity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EDIT_ITEM_REQUEST_CODE && resultCode == RESULT_OK) {
+            String item = data.getStringExtra("item");
+            int pos = data.getIntExtra("pos", -1);
+            if (pos != -1) {
+                if (item.isEmpty()) {
+                    // delete item.
+                    items.remove(pos);
+                    itemsAdapter.notifyDataSetChanged();
+                } else {
+                    // update item.
+                    items.remove(pos);
+                    items.add(pos, item);
+                    itemsAdapter.notifyDataSetChanged();
+                }
+                saveItems();
+            }
+        }
+    }
+
     public void addItem(View v) {
         itemsAdapter.add(etAddItem.getText().toString());
         etAddItem.setText("");
@@ -64,6 +89,15 @@ public class ToDoActivity extends Activity {
                 itemsAdapter.notifyDataSetChanged();
                 saveItems();
                 return true;
+            }
+        });
+        lvItems.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int pos, long id) {
+                Intent intent = new Intent(ToDoActivity.this, EditItemActivity.class);
+                intent.putExtra("item", itemsAdapter.getItem(pos));
+                intent.putExtra("pos", pos);
+                startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
             }
         });
     }
@@ -83,6 +117,7 @@ public class ToDoActivity extends Activity {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
+            // TODO(ipince): serialize this better to avoid multiline deserialization breakage.
             FileUtils.writeLines(todoFile, items);
         } catch (IOException e) {
             e.printStackTrace();
