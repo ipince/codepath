@@ -8,5 +8,7 @@
     <string name="pct_10">10%</string>
     <string name="pct_15">15%</string>
     <string name="pct_20">20%</string>
+    <string name="tip_message">Tip: %1$s.  Total: %2$s</string>
+    <string name="amount_error_msg">Please enter a valid amount</string>
 
 </resources>

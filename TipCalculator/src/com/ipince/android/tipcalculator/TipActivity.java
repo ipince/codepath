@@ -47,11 +47,13 @@ public class TipActivity extends Activity {
 
         // TODO: add on change value listeners
         // TODO: add rounded tip calculation
-        // TODO: use resources instead of literal strings
     }
 
-    private void setTipAmount(double tip) {
-        tvTipAmount.setText("Tip: " + formatter.format(tip));
+    private void setTipAmount(int amountCents, int tipCents) {
+        double total = (amountCents + tipCents)*1.0/100;
+        tvTipAmount.setText(getString(R.string.tip_message,
+                formatter.format(tipCents*1.0/100),
+                formatter.format(total)));
     }
 
     private OnClickListener getListener(final double pct) {
@@ -61,11 +63,12 @@ public class TipActivity extends Activity {
                 String input = etFullAmount.getText().toString();
                 try {
                     Number num = formatter.parse(input);
-                    double tip = num.doubleValue() * pct;
-                    setTipAmount(tip);
+                    int amountCents = (int) Math.round(num.doubleValue() * 100);
+                    int tipCents = (int) Math.round(amountCents * pct);
+                    setTipAmount(amountCents, tipCents);
                 } catch (ParseException e) {
                     Log.i(TAG, "Invalid currency: " + input, e);
-                    Toast.makeText(TipActivity.this, "Please enter a valid amount", TOAST_TIME_SECS).show();
+                    Toast.makeText(TipActivity.this, getString(R.string.amount_error_msg), TOAST_TIME_SECS).show();
                 }
             }
         };
