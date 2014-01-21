@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TipActivity" >
+
+    <EditText
+        android:id="@+id/etFullAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="@string/etFullAmountHint"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bTipPctMiddle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etFullAmount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/pct_15" />
+
+    <Button
+        android:id="@+id/bTipPctRight"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bTipPctMiddle"
+        android:layout_alignBottom="@+id/bTipPctMiddle"
+        android:layout_toRightOf="@+id/bTipPctMiddle"
+        android:text="@string/pct_20" />
+
+    <Button
+        android:id="@+id/bTipPctLeft"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bTipPctMiddle"
+        android:layout_alignBottom="@+id/bTipPctMiddle"
+        android:layout_toLeftOf="@+id/bTipPctMiddle"
+        android:text="@string/pct_10" />
+    
+    <TextView
+        android:id="@+id/tvTipAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bTipPctMiddle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp" />
+
+</RelativeLayout>
