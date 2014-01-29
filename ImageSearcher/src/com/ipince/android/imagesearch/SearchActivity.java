@@ -36,7 +36,7 @@ public class SearchActivity extends Activity {
 
 
     private final GoogleImagesClient client = new GoogleImagesClient();
-    private AdvancedSettings settings;
+    private AdvancedSettings settings = new AdvancedSettings();
 
     private String query; // current query. could remove this by using closures.
 
@@ -79,9 +79,14 @@ public class SearchActivity extends Activity {
         return true;
     }
 
-    public void onEditAdvancedSettings(MenuItem item) {
-        Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == INTENT_REQUEST_CODE_SETTINGS && resultCode == RESULT_OK) {
+            settings = (AdvancedSettings) data.getSerializableExtra(INTENT_KEY_SETTINGS);
+        }
+    }
 
+    public void onEditAdvancedSettings(MenuItem item) {
         Intent intent = new Intent(this, EditSettingsActivity.class);
         intent.putExtra(INTENT_KEY_SETTINGS, settings);
         startActivityForResult(intent, INTENT_REQUEST_CODE_SETTINGS);

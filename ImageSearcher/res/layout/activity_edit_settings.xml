@@ -7,13 +7,95 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditSettingsActivity" >
-
-    <Spinner
-        android:id="@+id/spinner1"
+    
+    <TextView
+        android:id="@+id/tvSettingsHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+    
+    <TextView
+        android:id="@+id/tvSettingsSize"
+        android:layout_width="@dimen/settings_label_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinSettingsSize"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvSettingsHeader"
+        android:text="Image Size"
+        android:textSize="14sp" />
+    
+    <Spinner
+        android:id="@+id/spinSettingsSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSettingsHeader"
+        android:layout_toRightOf="@+id/tvSettingsSize"
+        android:prompt="@string/hello_world" />
+    
+    <TextView
+        android:id="@+id/etSettingsColor"
+        android:layout_width="@dimen/settings_label_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinSettingsColor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/spinSettingsColor"
+        android:text="Color Filter" />
+
+    <Spinner
+        android:id="@+id/spinSettingsColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/spinSettingsSize"
+        android:layout_below="@+id/spinSettingsSize" />
+    
+    <TextView
+        android:id="@+id/etSettingsType"
+        android:layout_width="@dimen/settings_label_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinSettingsType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/spinSettingsType"
+        android:text="Image Type" />
+
+    <Spinner
+        android:id="@+id/spinSettingsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/spinSettingsColor"
+        android:layout_below="@+id/spinSettingsColor" />
+    
+    <TextView
+        android:id="@+id/tv_settings_site"
+        android:layout_width="@dimen/settings_label_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_settings_site"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/et_settings_site"
+        android:text="Site Filter" />
+    
+    <EditText
+        android:id="@+id/et_settings_site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinSettingsType"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinSettingsType"
+        android:hint="e.g. yahoo.com" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_settings_site"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:onClick="onSaveSettings"
+        android:text="Save" />
 
 </RelativeLayout>
