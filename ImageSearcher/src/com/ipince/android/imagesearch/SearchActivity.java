@@ -104,7 +104,7 @@ public class SearchActivity extends Activity {
     }
 
     private void fetchImages(String query, int size, int offset) {
-        client.search(query, size, offset, new ImageSearchCallback() {
+        client.search(query, size, offset, settings, new ImageSearchCallback() {
             @Override
             public void handle(List<ImageResult> results) {
                 for (ImageResult result : results) {

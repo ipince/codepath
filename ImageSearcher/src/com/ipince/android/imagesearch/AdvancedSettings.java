@@ -10,10 +10,13 @@ public class AdvancedSettings implements Serializable {
 
     public enum Size {
         NONE,
+        ICON,
         SMALL,
         MEDIUM,
         LARGE,
-        XLARGE;
+        XLARGE,
+        XXLARGE,
+        HUGE;
     }
 
     public enum Color {
@@ -22,12 +25,19 @@ public class AdvancedSettings implements Serializable {
         BLUE,
         BROWN,
         GRAY,
-        GREEN;
+        GREEN,
+        ORANGE,
+        PINK,
+        PURPLE,
+        RED,
+        TEAL,
+        WHITE,
+        YELLOW;
     }
 
     public enum Type {
         NONE,
-        FACES,
+        FACE,
         PHOTO,
         CLIPART,
         LINEART;
