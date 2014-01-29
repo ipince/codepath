@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ImageSearcher</string>
+    <string name="app_name">Google Image Searcher</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="advanced_settings">Advanced Settings</string>
-    <string name="title_activity_edit_settings">EditSettingsActivity</string>
-    <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="search">Search</string>
+    <string name="query_hint">Enter search query</string>
+    <string name="settings_size_label">Size Filter</string>
+    <string name="settings_color_label">Color Filter</string>
+    <string name="settings_type_label">Type Filter</string>
+    <string name="settings_site_label">Site Filter</string>
+    <string name="settings_site_hint">yahoo.com</string>
+    <string name="save">Save</string>
 
 </resources>

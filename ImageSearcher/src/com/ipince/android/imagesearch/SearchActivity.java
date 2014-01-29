@@ -13,7 +13,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -45,8 +44,8 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        etSearch = (EditText) findViewById(R.id.editText1);
-        gvResults = (GridView) findViewById(R.id.gridView1);
+        etSearch = (EditText) findViewById(R.id.et_query);
+        gvResults = (GridView) findViewById(R.id.gv_results);
 
         imageAdapter = new ImageResultArrayAdapter(this, imageResults);
         gvResults.setAdapter(imageAdapter);
@@ -66,8 +65,6 @@ public class SearchActivity extends Activity {
                 if (page > 0) {
                     fetchImages(query, IMAGE_RESULT_SIZE, (page - 1) * IMAGE_RESULT_SIZE);
                 }
-                Toast.makeText(getApplicationContext(),
-                        "page: " + page + ", totalItemsCount: " + totalItemsCount, Toast.LENGTH_SHORT).show();
             }
         });
     }

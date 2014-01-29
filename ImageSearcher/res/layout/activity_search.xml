@@ -9,37 +9,37 @@
     tools:context=".SearchActivity" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/et_query"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:hint="@string/query_hint"
         android:inputType="text" >
 
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
-        android:layout_alignParentTop="true"
+        android:layout_alignBaseline="@+id/et_query"
+        android:layout_alignBottom="@+id/et_query"
         android:layout_alignParentRight="true"
-        android:text="Search"
-        android:onClick="onClickSearch" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/et_query"
+        android:onClick="onClickSearch"
+        android:text="@string/search" />
 
     <GridView
-        android:id="@+id/gridView1"
+        android:id="@+id/gv_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/et_query"
         android:numColumns="2" >
 
     </GridView>
