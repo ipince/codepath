@@ -9,38 +9,72 @@ public class AdvancedSettings implements Serializable {
     private static final long serialVersionUID = 4337223576478735722L;
 
     public enum Size {
-        NONE,
-        ICON,
-        SMALL,
-        MEDIUM,
-        LARGE,
-        XLARGE,
-        XXLARGE,
-        HUGE;
+        // TODO(ipince): horrible. These names should be localized.
+        NONE("No Filter"),
+        ICON("Icon"),
+        SMALL("Small"),
+        MEDIUM("Medium"),
+        LARGE("Large"),
+        XLARGE("X-Large"),
+        XXLARGE("XX-Large"),
+        HUGE("Huge");
+
+        private String name;
+
+        private Size(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum Color {
-        NONE,
-        BLACK,
-        BLUE,
-        BROWN,
-        GRAY,
-        GREEN,
-        ORANGE,
-        PINK,
-        PURPLE,
-        RED,
-        TEAL,
-        WHITE,
-        YELLOW;
+        NONE("No Filer"),
+        BLACK("Black"),
+        BLUE("Blue"),
+        BROWN("Brown"),
+        GRAY("Gray"),
+        GREEN("Green"),
+        ORANGE("Orange"),
+        PINK("Pink"),
+        PURPLE("Purple"),
+        RED("Red"),
+        TEAL("Teal"),
+        WHITE("White"),
+        YELLOW("Yellow");
+
+        private String name;
+
+        private Color(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum Type {
-        NONE,
-        FACE,
-        PHOTO,
-        CLIPART,
-        LINEART;
+        NONE("No Filter"),
+        FACE("Face"),
+        PHOTO("Photo"),
+        CLIPART("Clip-Art"),
+        LINEART("Line Art");
+
+        private String name;
+
+        private Type(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     private Size size = Size.NONE;
