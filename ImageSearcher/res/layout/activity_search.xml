@@ -40,7 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editText1"
-        android:numColumns="4" >
+        android:numColumns="2" >
 
     </GridView>
 

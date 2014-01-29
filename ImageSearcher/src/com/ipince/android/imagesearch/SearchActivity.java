@@ -26,13 +26,19 @@ public class SearchActivity extends Activity {
 
     private static final int INTENT_REQUEST_CODE_SETTINGS = 1;
 
+    private static final int IMAGE_RESULT_SIZE = 8;
+
+    // UI-related fields.
     private EditText etSearch;
     private GridView gvResults;
     private final List<ImageResult> imageResults = Lists.newArrayList();
     private ArrayAdapter<ImageResult> imageAdapter;
 
-    private AdvancedSettings settings;
+
     private final GoogleImagesClient client = new GoogleImagesClient();
+    private AdvancedSettings settings;
+
+    private String query; // current query. could remove this by using closures.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,17 @@ public class SearchActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                if (page > 0) {
+                    fetchImages(query, IMAGE_RESULT_SIZE, (page - 1) * IMAGE_RESULT_SIZE);
+                }
+                Toast.makeText(getApplicationContext(),
+                        "page: " + page + ", totalItemsCount: " + totalItemsCount, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -71,17 +88,20 @@ public class SearchActivity extends Activity {
     }
 
     public void onClickSearch(View view) {
-        // TODO: disable button, add loading icon?
+        // TODO: disable button, add loading icon? Get rid of keyboard.
         String query = etSearch.getText().toString();
         if (Strings.isNullOrEmpty(query)) {
             // TODO Toast w error
         }
-        client.search(query, new ImageSearchCallback() {
+        this.query = query;
+        imageResults.clear();
+        fetchImages(query, IMAGE_RESULT_SIZE, 0);
+    }
 
+    private void fetchImages(String query, int size, int offset) {
+        client.search(query, size, offset, new ImageSearchCallback() {
             @Override
             public void handle(List<ImageResult> results) {
-                Toast.makeText(SearchActivity.this, "Got " + results.size() + " results", Toast.LENGTH_LONG).show();
-                imageResults.clear();
                 for (ImageResult result : results) {
                     imageAdapter.add(result);
                 }

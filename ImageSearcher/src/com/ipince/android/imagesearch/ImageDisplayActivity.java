@@ -17,5 +17,7 @@ public class ImageDisplayActivity extends Activity {
         ImageResult imageResult =
                 (ImageResult) getIntent().getSerializableExtra(SearchActivity.INTENT_KEY_IMAGE_RESULT);
         ivImage.setImageUrl(imageResult.getImgUrl());
+
+        // TODO: make fullscreen. implement swipe scroll.
     }
 }
