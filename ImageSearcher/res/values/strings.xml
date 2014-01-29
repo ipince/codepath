@@ -12,5 +12,6 @@
     <string name="settings_site_label">Site Filter</string>
     <string name="settings_site_hint">yahoo.com</string>
     <string name="save">Save</string>
+    <string name="error_no_query">Please enter a query</string>
 
 </resources>

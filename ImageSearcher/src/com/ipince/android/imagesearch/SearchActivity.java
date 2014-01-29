@@ -3,16 +3,19 @@ package com.ipince.android.imagesearch;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -71,7 +74,6 @@ public class SearchActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
     }
@@ -90,11 +92,16 @@ public class SearchActivity extends Activity {
     }
 
     public void onClickSearch(View view) {
-        // TODO: disable button, add loading icon? Get rid of keyboard.
+        // TODO: disable button, add loading icon.
         String query = etSearch.getText().toString();
         if (Strings.isNullOrEmpty(query)) {
-            // TODO Toast w error
+            Toast.makeText(getApplicationContext(), getString(R.string.error_no_query), Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         this.query = query;
         imageResults.clear();
         fetchImages(query, IMAGE_RESULT_SIZE, 0);
