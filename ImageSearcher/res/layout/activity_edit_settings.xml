@@ -9,7 +9,7 @@
     tools:context=".EditSettingsActivity" >
     
     <TextView
-        android:id="@+id/tvSettingsHeader"
+        android:id="@+id/tv_settings_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,81 +18,81 @@
         android:text="@string/advanced_settings" />
     
     <TextView
-        android:id="@+id/tvSettingsSize"
+        android:id="@+id/tv_size_label"
         android:layout_width="@dimen/settings_label_width"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinSettingsSize"
+        android:layout_alignBottom="@+id/spin_size"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvSettingsHeader"
+        android:layout_below="@+id/tv_settings_header"
         android:text="@string/settings_size_label"
         android:textSize="14sp" />
     
     <Spinner
-        android:id="@+id/spinSettingsSize"
+        android:id="@+id/spin_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvSettingsHeader"
-        android:layout_toRightOf="@+id/tvSettingsSize" />
+        android:layout_below="@+id/tv_settings_header"
+        android:layout_toRightOf="@+id/tv_size_label" />
     
     <TextView
-        android:id="@+id/etSettingsColor"
+        android:id="@+id/tv_color_label"
         android:layout_width="@dimen/settings_label_width"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinSettingsColor"
+        android:layout_alignBottom="@+id/spin_color"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/spinSettingsColor"
+        android:layout_alignTop="@+id/spin_color"
         android:text="@string/settings_color_label" />
 
     <Spinner
-        android:id="@+id/spinSettingsColor"
+        android:id="@+id/spin_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spin_size"
         android:layout_alignParentRight="true"
-        android:layout_alignLeft="@+id/spinSettingsSize"
-        android:layout_below="@+id/spinSettingsSize" />
+        android:layout_below="@+id/spin_size" />
     
     <TextView
-        android:id="@+id/etSettingsType"
+        android:id="@+id/tv_type_label"
         android:layout_width="@dimen/settings_label_width"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinSettingsType"
+        android:layout_alignBottom="@+id/spin_type"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/spinSettingsType"
+        android:layout_alignTop="@+id/spin_type"
         android:text="@string/settings_type_label" />
 
     <Spinner
-        android:id="@+id/spinSettingsType"
+        android:id="@+id/spin_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spin_color"
         android:layout_alignParentRight="true"
-        android:layout_alignLeft="@+id/spinSettingsColor"
-        android:layout_below="@+id/spinSettingsColor" />
+        android:layout_below="@+id/spin_color" />
     
     <TextView
-        android:id="@+id/tv_settings_site"
+        android:id="@+id/tv_site_label"
         android:layout_width="@dimen/settings_label_width"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_settings_site"
+        android:layout_alignBottom="@+id/et_site"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/et_settings_site"
+        android:layout_alignTop="@+id/et_site"
         android:text="@string/settings_site_label" />
     
     <EditText
-        android:id="@+id/et_settings_site"
+        android:id="@+id/et_site"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinSettingsType"
+        android:layout_alignLeft="@+id/spin_type"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinSettingsType"
+        android:layout_below="@+id/spin_type"
         android:hint="@string/settings_site_hint"
         android:inputType="text" />
 
     <Button
-        android:id="@+id/btn_search"
+        android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_settings_site"
+        android:layout_below="@+id/et_site"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:onClick="onSaveSettings"

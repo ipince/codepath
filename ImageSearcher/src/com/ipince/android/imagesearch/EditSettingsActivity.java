@@ -25,13 +25,13 @@ public class EditSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_settings);
 
-        spinSize = (Spinner) findViewById(R.id.spinSettingsSize);
+        spinSize = (Spinner) findViewById(R.id.spin_size);
         spinSize.setAdapter(getEnumAdapter(Size.values()));
-        spinColor = (Spinner) findViewById(R.id.spinSettingsColor);
+        spinColor = (Spinner) findViewById(R.id.spin_color);
         spinColor.setAdapter(getEnumAdapter(Color.values()));
-        spinType = (Spinner) findViewById(R.id.spinSettingsType);
+        spinType = (Spinner) findViewById(R.id.spin_type);
         spinType.setAdapter(getEnumAdapter(Type.values()));
-        etSite = (EditText) findViewById(R.id.et_settings_site);
+        etSite = (EditText) findViewById(R.id.et_site);
 
         loadOptionsFromIntent();
     }
