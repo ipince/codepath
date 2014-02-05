@@ -68,4 +68,8 @@ public class Tweet extends Model implements Serializable {
     public String getBody() {
         return body;
     }
+
+    public long getRemoteIdAsLong() {
+        return Long.valueOf(remoteId);
+    }
 }

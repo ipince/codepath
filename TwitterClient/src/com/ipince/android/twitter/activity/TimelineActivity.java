@@ -17,6 +17,7 @@ import com.codepath.apps.restclienttemplate.R;
 import com.ipince.android.twitter.TwitterClientApp;
 import com.ipince.android.twitter.client.TwitterClient;
 import com.ipince.android.twitter.model.Tweet;
+import com.ipince.android.twitter.widget.EndlessScrollListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -39,7 +40,20 @@ public class TimelineActivity extends Activity {
         tweetAdapter = new TweetArrayAdapter(this, tweets);
         lvTweets.setAdapter(tweetAdapter);
 
-        fetchTweets();
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Assume we just need to load more; ignore page.
+                if (tweetAdapter.getCount() > 1) {
+                    Tweet lastTweet = tweetAdapter.getItem(tweetAdapter.getCount() - 1);
+                    long lastId = lastTweet.getRemoteIdAsLong();
+                    long maxId = lastId - 1;
+                    fetchTweets(maxId, false);
+                }
+            }
+        });
+
+        fetchTweets(null, true);
     }
 
     @Override
@@ -51,15 +65,18 @@ public class TimelineActivity extends Activity {
         }
     }
 
-    private void fetchTweets() {
+    // maxId can be null
+    private void fetchTweets(Long maxId, final boolean clear) {
         TwitterClient client = TwitterClientApp.getRestClient();
-        client.getHomeTimeline(1, new JsonHttpResponseHandler() {
+        client.getHomeTimeline(maxId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
                 List<Tweet> tweets = Tweet.fromJson(json);
                 Toast.makeText(TimelineActivity.this, "Got " + tweets.size() + " tweets", Toast.LENGTH_LONG).show();
 
-                tweetAdapter.clear();
+                if (clear) {
+                    tweetAdapter.clear();
+                }
                 tweetAdapter.addAll(tweets);
             }
         });
