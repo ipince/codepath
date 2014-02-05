@@ -24,7 +24,7 @@ public class Tweet extends Model implements Serializable {
     @Column(name = "body")
     String body;
     @Column(name = "created_at")
-    String createdAt;
+    String createdAt; // TODO(ipince): use seconds_since_epoch
 
     public Tweet() {
         super();

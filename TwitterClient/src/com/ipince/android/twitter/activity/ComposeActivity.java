@@ -5,8 +5,12 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
@@ -17,7 +21,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ComposeActivity extends Activity {
 
+    private static final int LENGTH_BOUND = 140;
+
     private EditText etCompose;
+    private TextView tvCharCount;
+    private Button btnCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +33,33 @@ public class ComposeActivity extends Activity {
         setContentView(R.layout.activity_compose);
 
         etCompose = (EditText) findViewById(R.id.et_compose);
+        tvCharCount = (TextView) findViewById(R.id.tv_char_count);
+        btnCompose = (Button) findViewById(R.id.btn_compose);
 
-        // TODO(ipince): add listener to update char count.
+        etCompose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable text) {
+                // Do nothing.
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence text, int start, int count, int after) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onTextChanged(CharSequence text, int start, int before, int count) {
+                int length = text.length();
+                tvCharCount.setText(String.valueOf(length));
+                if (length > LENGTH_BOUND) {
+                    tvCharCount.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    btnCompose.setEnabled(false);
+                } else {
+                    tvCharCount.setTextColor(getResources().getColor(android.R.color.black));
+                    btnCompose.setEnabled(true);
+                }
+            }
+        });
     }
 
     public void onClickCompose(View view) {
