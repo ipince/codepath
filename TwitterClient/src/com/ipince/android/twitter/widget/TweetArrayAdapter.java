@@ -37,7 +37,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         TextView nameView = (TextView) view.findViewById(R.id.tv_tweet_name);
         // TODO(ipince): format nicely.
         String formattedHeadline = "<b>" + tweet.getUser().name + "</b> <small><font color=#777777>@"
-                + tweet.getUser().handle + "</font></small>";
+                + tweet.getUser().handle + " - " + tweet.getCreatedAt() + "</font></small>";
         nameView.setText(Html.fromHtml(formattedHeadline));
 
         TextView bodyView = (TextView) view.findViewById(R.id.tv_tweet_body);

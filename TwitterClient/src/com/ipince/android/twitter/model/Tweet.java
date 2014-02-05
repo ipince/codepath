@@ -39,6 +39,7 @@ public class Tweet extends Model implements Serializable {
             this.remoteId = object.getString("id_str");
             this.user = new User(object.getJSONObject("user"));
             this.body = object.getString("text");
+            this.createdAt = object.getString("created_at");
         } catch (JSONException e) {
             Log.d("Tweet", "Unable to parse json: " + object.toString(), e);
         }
@@ -73,5 +74,9 @@ public class Tweet extends Model implements Serializable {
 
     public long getRemoteIdAsLong() {
         return Long.valueOf(remoteId);
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
     }
 }
