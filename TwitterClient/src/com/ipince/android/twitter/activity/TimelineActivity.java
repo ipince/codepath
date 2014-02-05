@@ -1,4 +1,4 @@
-package com.codepath.apps.activity;
+package com.ipince.android.twitter.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.RestClient;
-import com.codepath.apps.restclienttemplate.RestClientApp;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.ipince.android.twitter.TwitterClientApp;
+import com.ipince.android.twitter.client.TwitterClient;
+import com.ipince.android.twitter.model.Tweet;
+import com.ipince.android.twitter.widget.TweetArrayAdapter;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends Activity {
@@ -51,7 +52,7 @@ public class TimelineActivity extends Activity {
     }
 
     private void fetchTweets() {
-        RestClient client = RestClientApp.getRestClient();
+        TwitterClient client = TwitterClientApp.getRestClient();
         client.getHomeTimeline(1, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {

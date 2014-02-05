@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.ipince.android.twitter.client;
 
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
@@ -21,14 +21,14 @@ import com.loopj.android.http.RequestParams;
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
  * 
  */
-public class RestClient extends OAuthBaseClient {
+public class TwitterClient extends OAuthBaseClient {
     public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
     public static final String REST_URL = "https://api.twitter.com/1.1";
     public static final String REST_CONSUMER_KEY = "Dx1LPLKCCcefeg2LJG4ZYg";
     public static final String REST_CONSUMER_SECRET = "bi7PdS2ScN1t16svmumbv2FHce8PgwcYOwznviW2Y";
     public static final String REST_CALLBACK_URL = "oauth://trivialtweetclient";
 
-    public RestClient(Context context) {
+    public TwitterClient(Context context) {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
     }
 

@@ -1,4 +1,4 @@
-package com.codepath.apps.activity;
+package com.ipince.android.twitter.activity;
 
 import org.json.JSONObject;
 
@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.RestClient;
-import com.codepath.apps.restclienttemplate.RestClientApp;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.ipince.android.twitter.TwitterClientApp;
+import com.ipince.android.twitter.client.TwitterClient;
+import com.ipince.android.twitter.model.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ComposeActivity extends Activity {
@@ -34,7 +34,7 @@ public class ComposeActivity extends Activity {
 
         // TODO(ipince): Do some client-side checks.
 
-        RestClient client = RestClientApp.getRestClient();
+        TwitterClient client = TwitterClientApp.getRestClient();
         client.postTweet(body, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject json) {

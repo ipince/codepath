@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.ipince.android.twitter.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

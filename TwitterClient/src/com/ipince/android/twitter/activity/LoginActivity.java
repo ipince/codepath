@@ -1,13 +1,14 @@
-package com.codepath.apps.restclienttemplate;
+package com.ipince.android.twitter.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.codepath.apps.activity.TimelineActivity;
+import com.codepath.apps.restclienttemplate.R;
 import com.codepath.oauth.OAuthLoginActivity;
+import com.ipince.android.twitter.client.TwitterClient;
 
-public class LoginActivity extends OAuthLoginActivity<RestClient> {
+public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
