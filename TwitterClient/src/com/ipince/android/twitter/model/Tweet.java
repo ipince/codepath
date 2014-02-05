@@ -23,6 +23,8 @@ public class Tweet extends Model implements Serializable {
     User user;
     @Column(name = "body")
     String body;
+    @Column(name = "created_at")
+    String createdAt;
 
     public Tweet() {
         super();

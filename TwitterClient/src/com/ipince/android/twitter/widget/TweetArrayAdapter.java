@@ -3,6 +3,7 @@ package com.ipince.android.twitter.widget;
 import java.util.List;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,9 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 
         TextView nameView = (TextView) view.findViewById(R.id.tv_tweet_name);
         // TODO(ipince): format nicely.
-        nameView.setText(tweet.getUser().name);
+        String formattedHeadline = "<b>" + tweet.getUser().name + "</b> <small><font color=#777777>@"
+                + tweet.getUser().handle + "</font></small>";
+        nameView.setText(Html.fromHtml(formattedHeadline));
 
         TextView bodyView = (TextView) view.findViewById(R.id.tv_tweet_body);
         bodyView.setText(tweet.getBody());
