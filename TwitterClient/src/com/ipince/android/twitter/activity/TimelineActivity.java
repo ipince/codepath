@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,7 +67,12 @@ public class TimelineActivity extends Activity {
             }
         });
 
-        fetchTweets(null, true);
+        if (iCanHasInternets()) {
+            fetchTweets(null, true);
+        } else {
+            // load tweets from db.
+            loadLocalTweets();
+        }
     }
 
     @Override
@@ -72,7 +80,7 @@ public class TimelineActivity extends Activity {
         if (requestCode == REQ_CODE_COMPOSE_TWEET && resultCode == RESULT_OK) {
             Tweet tweet = (Tweet) data.getSerializableExtra("tweet");
             tweetAdapter.insert(tweet, 0);
-            // TODO(ipince): save tweet.
+            tweet.deepSave();
         }
     }
 
@@ -89,15 +97,25 @@ public class TimelineActivity extends Activity {
                     tweetAdapter.clear();
                 }
                 tweetAdapter.addAll(tweets);
+                // TODO(ipince): optimize?
+                for (Tweet t : tweets) {
+                    t.deepSave();
+                }
                 lvTweets.onRefreshComplete();
             }
 
             @Override
             public void onFailure(Throwable throwable, JSONObject json) {
                 Log.d("TimelineActivity", "Error fetching tweets: " + json.toString(), throwable);
+                Toast.makeText(TimelineActivity.this, "Sorry, cannot fetch tweets", Toast.LENGTH_LONG).show();
                 lvTweets.onRefreshComplete();
             }
         });
+    }
+
+    private void loadLocalTweets() {
+        List<Tweet> tweets = Tweet.recentTweets();
+        tweetAdapter.addAll(tweets);
     }
 
     @Override
@@ -109,5 +127,14 @@ public class TimelineActivity extends Activity {
     public void onMenuClickCompose(MenuItem item) {
         Intent i = new Intent(this, ComposeActivity.class);
         startActivityForResult(i, REQ_CODE_COMPOSE_TWEET);
+    }
+
+    private boolean iCanHasInternets() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 }

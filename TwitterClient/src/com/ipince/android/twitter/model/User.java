@@ -7,13 +7,14 @@ import org.json.JSONObject;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Column.ConflictAction;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.util.Log;
 
 @Table(name = "users")
 public class User extends Model implements Serializable {
 
-    @Column(name = "remoteId")
+    @Column(name = "remote_id", unique = true, onUniqueConflict = ConflictAction.REPLACE)
     public String remoteId;
     @Column(name = "name")
     public String name;

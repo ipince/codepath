@@ -12,12 +12,14 @@ import android.util.Log;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Column.ConflictAction;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 @Table(name = "tweets")
 public class Tweet extends Model implements Serializable {
     // Define database columns and associated fields
-    @Column(name = "remote_id")
+    @Column(name = "remote_id", unique = true, onUniqueConflict = ConflictAction.REPLACE)
     String remoteId;
     @Column(name = "user")
     User user;
@@ -78,5 +80,14 @@ public class Tweet extends Model implements Serializable {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public Long deepSave() {
+        user.save();
+        return save();
+    }
+
+    public static List<Tweet> recentTweets() {
+        return new Select().from(Tweet.class).orderBy("id DESC").limit("300").execute();
     }
 }
