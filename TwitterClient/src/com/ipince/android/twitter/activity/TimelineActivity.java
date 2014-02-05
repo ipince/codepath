@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
@@ -21,11 +22,14 @@ import com.ipince.android.twitter.widget.EndlessScrollListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
+
 public class TimelineActivity extends Activity {
 
     public static final int REQ_CODE_COMPOSE_TWEET = 1;
 
-    private ListView lvTweets;
+    private PullToRefreshListView lvTweets;
 
     private TweetArrayAdapter tweetAdapter;
     private final List<Tweet> tweets = new ArrayList<Tweet>();
@@ -35,7 +39,7 @@ public class TimelineActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        lvTweets = (ListView) findViewById(R.id.lv_tweets);
+        lvTweets = (PullToRefreshListView) findViewById(R.id.lv_tweets);
 
         tweetAdapter = new TweetArrayAdapter(this, tweets);
         lvTweets.setAdapter(tweetAdapter);
@@ -50,6 +54,13 @@ public class TimelineActivity extends Activity {
                     long maxId = lastId - 1;
                     fetchTweets(maxId, false);
                 }
+            }
+        });
+
+        lvTweets.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTweets(null, true);
             }
         });
 
@@ -78,6 +89,13 @@ public class TimelineActivity extends Activity {
                     tweetAdapter.clear();
                 }
                 tweetAdapter.addAll(tweets);
+                lvTweets.onRefreshComplete();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject json) {
+                Log.d("TimelineActivity", "Error fetching tweets: " + json.toString(), throwable);
+                lvTweets.onRefreshComplete();
             }
         });
     }
