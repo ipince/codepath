@@ -17,7 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.activeandroid.ActiveAndroid;
+import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.TwitterClientApp;
 import com.ipince.android.twitter.client.TwitterClient;
 import com.ipince.android.twitter.model.Tweet;
@@ -97,10 +98,7 @@ public class TimelineActivity extends Activity {
                     tweetAdapter.clear();
                 }
                 tweetAdapter.addAll(tweets);
-                // TODO(ipince): optimize?
-                for (Tweet t : tweets) {
-                    t.deepSave();
-                }
+                persistTweets(tweets);
                 lvTweets.onRefreshComplete();
             }
 
@@ -116,6 +114,18 @@ public class TimelineActivity extends Activity {
     private void loadLocalTweets() {
         List<Tweet> tweets = Tweet.recentTweets();
         tweetAdapter.addAll(tweets);
+    }
+
+    private void persistTweets(List<Tweet> tweets) {
+        ActiveAndroid.beginTransaction();
+        try {
+            for (Tweet t : tweets) {
+                t.deepSave();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
     @Override

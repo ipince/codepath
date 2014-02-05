@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.model.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,15 +31,21 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
         }
 
         Tweet tweet = getItem(pos);
-
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_tweet_pic);
-        ImageLoader.getInstance().displayImage(tweet.getUser().profileImageUrl, imageView);
+        if (tweet.getUser() == null) {
+            Log.d("TweetArrayAdapter", "null user for tweet: " + tweet.getBody());
+            return view;
+        }
 
         TextView nameView = (TextView) view.findViewById(R.id.tv_tweet_name);
         // TODO(ipince): format nicely.
         String formattedHeadline = "<b>" + tweet.getUser().name + "</b> <small><font color=#777777>@"
                 + tweet.getUser().handle + " - " + tweet.getCreatedAt() + "</font></small>";
         nameView.setText(Html.fromHtml(formattedHeadline));
+
+
+
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_tweet_pic);
+        ImageLoader.getInstance().displayImage(tweet.getUser().profileImageUrl, imageView);
 
         TextView bodyView = (TextView) view.findViewById(R.id.tv_tweet_body);
         bodyView.setText(tweet.getBody());
