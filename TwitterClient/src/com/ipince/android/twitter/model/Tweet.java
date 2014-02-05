@@ -83,7 +83,8 @@ public class Tweet extends Model implements Serializable {
     }
 
     public Long deepSave() {
-        user.save();
+        Long id = user.save();
+        Log.w("Tweet", "After saving user, user's id is: " + user.getId() + ". id returned by save() is: " + id);
         return save();
     }
 
