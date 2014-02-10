@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity" >
 
-    <eu.erikw.PullToRefreshListView
-        android:id="@+id/lv_tweets"
+    <fragment
+        android:id="@+id/frg_tweet_list"
+        android:name="com.ipince.android.twitter.fragment.TimelineFragment"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        tools:layout="@layout/fragment_tweet_list" />
 
 </LinearLayout>
