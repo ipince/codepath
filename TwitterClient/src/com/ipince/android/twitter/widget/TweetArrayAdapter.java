@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.model.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

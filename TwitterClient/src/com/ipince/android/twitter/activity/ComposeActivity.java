@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.TwitterClientApp;
 import com.ipince.android.twitter.client.TwitterClient;
 import com.ipince.android.twitter.model.Tweet;
