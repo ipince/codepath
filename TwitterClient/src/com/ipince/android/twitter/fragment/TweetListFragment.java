@@ -24,15 +24,23 @@ public abstract class TweetListFragment extends Fragment {
     private ArrayAdapter<Tweet> adapter;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tweet_list, container);
+        // TODO(ipince): get views.
+        return inflater.inflate(R.layout.fragment_tweet_list, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         adapter = new TweetArrayAdapter(getActivity(), new ArrayList<Tweet>());
+
+        // TODO(ipince): move to interface.
         lvTweets = (PullToRefreshListView) getActivity().findViewById(R.id.lv_tweets);
         lvTweets.setAdapter(adapter);
 

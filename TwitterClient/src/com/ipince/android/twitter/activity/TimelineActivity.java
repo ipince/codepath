@@ -1,12 +1,20 @@
 package com.ipince.android.twitter.activity;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ipince.android.twitter.R;
+import com.ipince.android.twitter.fragment.MentionsFragment;
+import com.ipince.android.twitter.fragment.TimelineFragment;
 import com.ipince.android.twitter.fragment.TweetListFragment;
 import com.ipince.android.twitter.model.Tweet;
 
@@ -14,15 +22,30 @@ public class TimelineActivity extends FragmentActivity {
 
     public static final int REQ_CODE_COMPOSE_TWEET = 1;
 
-    private TweetListFragment frgTweetList;
+    private final TweetListFragment frgTweetList = new TimelineFragment();
+    private final MentionsFragment frgMentions = new MentionsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        setupTabs();
+    }
 
-        frgTweetList = (TweetListFragment) getSupportFragmentManager().findFragmentById(
-                R.id.frg_tweet_list);
+    private void setupTabs() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.tab_home)
+                .setIcon(R.drawable.ic_home)
+                .setTabListener(getTabListenerFor(frgTweetList)));
+
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.tab_mentions)
+                .setIcon(R.drawable.ic_at)
+                .setTabListener(getTabListenerFor(frgMentions)));
     }
 
     @Override
@@ -43,5 +66,23 @@ public class TimelineActivity extends FragmentActivity {
     public void onMenuClickCompose(MenuItem item) {
         Intent i = new Intent(this, ComposeActivity.class);
         startActivityForResult(i, REQ_CODE_COMPOSE_TWEET);
+    }
+
+    private TabListener getTabListenerFor(final Fragment fragment) {
+        return new TabListener() {
+            @Override
+            public void onTabReselected(Tab tab, FragmentTransaction ft) {}
+
+            @Override
+            public void onTabSelected(Tab tab, FragmentTransaction ft) {
+                FragmentManager manager = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
+                fts.replace(R.id.frm_container, fragment);
+                fts.commit();
+            }
+
+            @Override
+            public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
+        };
     }
 }

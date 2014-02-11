@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity" >
 
-    <fragment
-        android:id="@+id/frg_tweet_list"
-        android:name="com.ipince.android.twitter.fragment.TimelineFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:layout="@layout/fragment_tweet_list" />
+    <FrameLayout
+        android:id="@+id/frm_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </LinearLayout>
