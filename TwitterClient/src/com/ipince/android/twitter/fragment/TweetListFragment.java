@@ -1,18 +1,26 @@
 package com.ipince.android.twitter.fragment;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.model.Tweet;
 import com.ipince.android.twitter.widget.EndlessScrollListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter;
 import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
@@ -50,7 +58,7 @@ public abstract class TweetListFragment extends Fragment {
                     Tweet lastTweet = adapter.getItem(adapter.getCount() - 1);
                     long lastId = lastTweet.getRemoteIdAsLong();
                     long maxId = lastId - 1;
-                    fetchTweets(maxId, false);
+                    fetchTweets(maxId, getTweetHandler(false));
                 }
             }
         });
@@ -58,11 +66,11 @@ public abstract class TweetListFragment extends Fragment {
         lvTweets.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchTweets(null, true);
+                fetchTweets(null, getTweetHandler(true));
             }
         });
 
-        fetchTweets(null, true);
+        fetchTweets(null, getTweetHandler(true));
         return view;
     }
 
@@ -92,5 +100,28 @@ public abstract class TweetListFragment extends Fragment {
     }
     // End HACK.
 
-    protected abstract void fetchTweets(Long maxId, boolean clear);
+    protected abstract void fetchTweets(Long maxId, AsyncHttpResponseHandler handler);
+
+
+    private AsyncHttpResponseHandler getTweetHandler(final boolean clear) {
+        return new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray json) {
+                List<Tweet> tweets = Tweet.fromJson(json);
+                Toast.makeText(getActivity(), "Got " + tweets.size() + " tweets", Toast.LENGTH_LONG).show();
+
+                if (clear) {
+                    getAdapter().clear();
+                }
+                getAdapter().addAll(tweets);
+                lvTweets.onRefreshComplete();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject json) {
+                Log.d("TimelineActivity", "Error fetching tweets: " + json.toString(), throwable);
+                lvTweets.onRefreshComplete();
+            }
+        };
+    }
 }
