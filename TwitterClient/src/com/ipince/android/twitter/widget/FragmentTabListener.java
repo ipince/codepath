@@ -1,20 +1,21 @@
 package com.ipince.android.twitter.widget;
 
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
-import android.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.ActionBar.TabListener;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class FragmentTabListener implements TabListener {
 
-    private final FragmentActivity parent;
+    private final SherlockFragmentActivity parent;
     private final int containerId;
     private final Fragment fragment;
     private boolean added = false;
 
-    public FragmentTabListener(FragmentActivity parent, int containerId, Fragment fragment) {
+    public FragmentTabListener(SherlockFragmentActivity parent, int containerId, Fragment fragment) {
         this.parent = parent;
         this.containerId = containerId;
         this.fragment = fragment;

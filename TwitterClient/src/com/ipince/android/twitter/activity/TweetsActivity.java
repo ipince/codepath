@@ -1,12 +1,12 @@
 package com.ipince.android.twitter.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.fragment.HomeTimelineFragment;
 import com.ipince.android.twitter.fragment.MentionsTimelineFragment;
@@ -16,7 +16,7 @@ import com.ipince.android.twitter.model.User;
 import com.ipince.android.twitter.widget.FragmentTabListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
 
-public class TweetsActivity extends FragmentActivity implements ProfileImageListener {
+public class TweetsActivity extends SherlockFragmentActivity implements ProfileImageListener {
 
     public static final int REQ_CODE_COMPOSE_TWEET = 1;
 
@@ -34,7 +34,7 @@ public class TweetsActivity extends FragmentActivity implements ProfileImageList
     }
 
     private void setupTabs() {
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
 
@@ -62,7 +62,7 @@ public class TweetsActivity extends FragmentActivity implements ProfileImageList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tweets, menu);
+        getSupportMenuInflater().inflate(R.menu.tweets, menu);
         return true;
     }
 

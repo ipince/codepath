@@ -18,36 +18,36 @@ import com.activeandroid.query.Select;
  */
 @Table(name = "items")
 public class SampleModel extends Model {
-	// Define table fields
-	@Column(name = "name")
-	private String name;
-	
-	public SampleModel() {
-		super();
-	}
-	
-	// Parse model from JSON
-	public SampleModel(JSONObject object){
-		super();
+    // Define table fields
+    @Column(name = "name")
+    private String name;
 
-		try {
-			this.name = object.getString("title");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	// Getters
-	public String getName() {
-		return name;
-	}
-	
-	// Record Finders
-	public static SampleModel byId(long id) {
-	   return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
-	}
-	
-	public static List<SampleModel> recentItems() {
-      return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
-	}
+    public SampleModel() {
+        super();
+    }
+
+    // Parse model from JSON
+    public SampleModel(JSONObject object){
+        super();
+
+        try {
+            this.name = object.getString("title");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    // Record Finders
+    public static SampleModel byId(long id) {
+        return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
+    }
+
+    public static List<SampleModel> recentItems() {
+        return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
+    }
 }
