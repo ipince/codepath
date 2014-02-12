@@ -6,7 +6,7 @@ import com.ipince.android.twitter.TwitterClientApp;
 import com.ipince.android.twitter.client.TwitterClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class UserTimelineFragment extends TweetListFragment {
+public class UserTimelineFragment extends TimelineFragment {
 
     public static UserTimelineFragment newInstance(String handle) {
         UserTimelineFragment fragment = new UserTimelineFragment();

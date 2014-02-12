@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ipince.android.twitter.activity.TimelineActivity"
+            android:name="com.ipince.android.twitter.activity.TweetsActivity"
             android:label="@string/title_activity_timeline" >
         </activity>
         <activity

@@ -13,24 +13,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ipince.android.twitter.R;
-import com.ipince.android.twitter.fragment.MentionsFragment;
+import com.ipince.android.twitter.fragment.MentionsTimelineFragment;
+import com.ipince.android.twitter.fragment.HomeTimelineFragment;
 import com.ipince.android.twitter.fragment.TimelineFragment;
-import com.ipince.android.twitter.fragment.TweetListFragment;
 import com.ipince.android.twitter.model.Tweet;
 import com.ipince.android.twitter.model.User;
 import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
 
-public class TimelineActivity extends FragmentActivity implements ProfileImageListener {
+public class TweetsActivity extends FragmentActivity implements ProfileImageListener {
 
     public static final int REQ_CODE_COMPOSE_TWEET = 1;
 
-    private final TweetListFragment frgTweetList = new TimelineFragment();
-    private final MentionsFragment frgMentions = new MentionsFragment();
+    private final TimelineFragment frgTweetList = new HomeTimelineFragment();
+    private final MentionsTimelineFragment frgMentions = new MentionsTimelineFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        setContentView(R.layout.activity_tweets);
         setupTabs();
 
         frgTweetList.setProfileImageListener(this);
@@ -64,7 +64,7 @@ public class TimelineActivity extends FragmentActivity implements ProfileImageLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
+        getMenuInflater().inflate(R.menu.tweets, menu);
         return true;
     }
 
