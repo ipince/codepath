@@ -6,7 +6,7 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:onClick="onMenuClickCompose"
-        android:icon="@drawable/ic_action_compose"
+        android:icon="@drawable/ic_compose"
         android:title="@string/action_compose"/>
     
     <item
