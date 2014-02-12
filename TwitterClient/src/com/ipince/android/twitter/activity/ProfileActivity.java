@@ -46,8 +46,7 @@ public class ProfileActivity extends FragmentActivity {
 
             frgUserTimeline = UserTimelineFragment.newInstance(user.handle);
         } else {
-            // TODO(ipince): change to verify credentials
-            TwitterClientApp.getRestClient().getUser("reipince", new JsonHttpResponseHandler() {
+            TwitterClientApp.getRestClient().getUser(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(JSONObject json) {
                     User user = new User(json);
