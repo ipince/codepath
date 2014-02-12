@@ -38,16 +38,8 @@ public abstract class TweetListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        // TODO(ipince): get views.
-        return inflater.inflate(R.layout.fragment_tweet_list, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // TODO(ipince): move to interface.
-        lvTweets = (PullToRefreshListView) getActivity().findViewById(R.id.lv_tweets);
+        View view = inflater.inflate(R.layout.fragment_tweet_list, container, false);
+        lvTweets = (PullToRefreshListView) view.findViewById(R.id.lv_tweets);
         lvTweets.setAdapter(adapter);
 
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
@@ -71,6 +63,7 @@ public abstract class TweetListFragment extends Fragment {
         });
 
         fetchTweets(null, true);
+        return view;
     }
 
     public TweetArrayAdapter getAdapter() {
