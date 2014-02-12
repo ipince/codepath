@@ -70,6 +70,7 @@ public class ProfileActivity extends FragmentActivity {
     }
 
     private void displayUser(User user) {
+        getActionBar().setTitle("@" + user.handle);
         ImageLoader.getInstance().displayImage(user.profileImageUrl, ivProfileImage);
         tvName.setText(user.name);
         tvTagline.setText(user.tagline);
