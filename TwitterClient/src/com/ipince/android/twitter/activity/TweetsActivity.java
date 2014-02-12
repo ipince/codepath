@@ -1,23 +1,19 @@
 package com.ipince.android.twitter.activity;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ipince.android.twitter.R;
-import com.ipince.android.twitter.fragment.MentionsTimelineFragment;
 import com.ipince.android.twitter.fragment.HomeTimelineFragment;
+import com.ipince.android.twitter.fragment.MentionsTimelineFragment;
 import com.ipince.android.twitter.fragment.TimelineFragment;
 import com.ipince.android.twitter.model.Tweet;
 import com.ipince.android.twitter.model.User;
+import com.ipince.android.twitter.widget.FragmentTabListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
 
 public class TweetsActivity extends FragmentActivity implements ProfileImageListener {
@@ -45,12 +41,14 @@ public class TweetsActivity extends FragmentActivity implements ProfileImageList
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.tab_home)
                 .setIcon(R.drawable.ic_home)
-                .setTabListener(getTabListenerFor(frgTweetList)));
+                .setTabListener(new FragmentTabListener(
+                        this, R.id.frm_container, frgTweetList)));
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.tab_mentions)
                 .setIcon(R.drawable.ic_at)
-                .setTabListener(getTabListenerFor(frgMentions)));
+                .setTabListener(new FragmentTabListener(
+                        this, R.id.frm_container, frgMentions)));
     }
 
     @Override
@@ -83,23 +81,5 @@ public class TweetsActivity extends FragmentActivity implements ProfileImageList
         Intent i = new Intent(this, ProfileActivity.class);
         i.putExtra("user", user);
         startActivity(i);
-    }
-
-    private TabListener getTabListenerFor(final Fragment fragment) {
-        return new TabListener() {
-            @Override
-            public void onTabReselected(Tab tab, FragmentTransaction ft) {}
-
-            @Override
-            public void onTabSelected(Tab tab, FragmentTransaction ft) {
-                FragmentManager manager = getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
-                fts.replace(R.id.frm_container, fragment);
-                fts.commit();
-            }
-
-            @Override
-            public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
-        };
     }
 }
