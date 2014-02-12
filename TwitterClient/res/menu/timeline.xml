@@ -8,5 +8,13 @@
         android:onClick="onMenuClickCompose"
         android:icon="@drawable/ic_action_compose"
         android:title="@string/action_compose"/>
+    
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:onClick="onMenuClickProfile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/action_profile"/>
 
 </menu>

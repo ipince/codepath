@@ -60,4 +60,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="101dp" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tbRound"
+        android:layout_alignBottom="@+id/tbRound"
+        android:layout_alignRight="@+id/bTipPctRight"
+        android:text="@string/round_total_switch"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ToggleButton
+        android:id="@+id/tbRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bTipPctRight"
+        android:layout_toRightOf="@+id/textView1"
+        android:textOn="Round"
+        android:textOff="Exact"
+        android:text="toggle" />
+
 </RelativeLayout>

@@ -68,6 +68,11 @@ public class TimelineActivity extends FragmentActivity {
         startActivityForResult(i, REQ_CODE_COMPOSE_TWEET);
     }
 
+    public void onMenuClickProfile(MenuItem tiem) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
+    }
+
     private TabListener getTabListenerFor(final Fragment fragment) {
         return new TabListener() {
             @Override

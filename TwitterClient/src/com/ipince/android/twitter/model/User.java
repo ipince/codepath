@@ -19,6 +19,9 @@ public class User extends Model implements Serializable {
     public String name;
     @Column(name = "handle")
     public String handle;
+    public String tagline;
+    public int followers;
+    public int following;
     @Column(name = "profile_image_url")
     public String profileImageUrl;
 
@@ -30,10 +33,13 @@ public class User extends Model implements Serializable {
         super();
 
         try {
-            this.remoteId = json.getString("id_str");
-            this.name = json.getString("name");
-            this.handle = json.getString("screen_name");
-            this.profileImageUrl = json.getString("profile_image_url");
+            remoteId = json.getString("id_str");
+            name = json.getString("name");
+            handle = json.getString("screen_name");
+            tagline = json.getString("description");
+            followers = json.getInt("followers_count");
+            following = json.getInt("friends_count");
+            profileImageUrl = json.getString("profile_image_url");
         } catch (JSONException e) {
             Log.d("User", "Invalid json: " + json.toString(), e);
         }

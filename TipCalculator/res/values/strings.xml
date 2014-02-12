@@ -10,5 +10,6 @@
     <string name="pct_20">20%</string>
     <string name="tip_message">Tip: %1$s (%2$s%%).  Total: %3$s</string>
     <string name="amount_error_msg">Please enter a valid amount</string>
+    <string name="round_total_switch">Round to whole dollar</string>
 
 </resources>

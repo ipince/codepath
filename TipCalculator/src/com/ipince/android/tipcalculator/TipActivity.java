@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class TipActivity extends Activity {
 
@@ -33,6 +34,7 @@ public class TipActivity extends Activity {
     private Button bTipPctLeft;
     private Button bTipPctMiddle;
     private Button bTipPctRight;
+    private ToggleButton tbRound;
     private TextView tvTipAmount;
 
     private final NumberFormat formatter = new DecimalFormat("#.00");
@@ -44,6 +46,7 @@ public class TipActivity extends Activity {
 
         etFullAmount = (EditText) findViewById(R.id.etFullAmount);
 
+        tbRound = (ToggleButton) findViewById(R.id.tbRound);
         bTipPctLeft = (Button) findViewById(R.id.bTipPctLeft);
         bTipPctMiddle = (Button) findViewById(R.id.bTipPctMiddle);
         bTipPctRight = (Button) findViewById(R.id.bTipPctRight);
@@ -65,7 +68,7 @@ public class TipActivity extends Activity {
                 try {
                     Number num = formatter.parse(input);
                     int amountCents = (int) Math.round(num.doubleValue() * 100);
-                    setTip(amountCents, pct, true);
+                    setTip(amountCents, pct, tbRound.isChecked());
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } catch (ParseException e) {
