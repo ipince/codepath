@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public abstract class TweetListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.e("Fragment", "onCreate()");
         super.onCreate(savedInstanceState);
         adapter = new TweetArrayAdapter(getActivity(), new ArrayList<Tweet>());
         // HACK HACK. See note below.
@@ -40,14 +38,12 @@ public abstract class TweetListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Log.e("Fragment", "onCreateView()");
         // TODO(ipince): get views.
         return inflater.inflate(R.layout.fragment_tweet_list, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.e("Fragment", "onActivityCrated()");
         super.onActivityCreated(savedInstanceState);
 
         // TODO(ipince): move to interface.

@@ -70,6 +70,7 @@ public class ProfileActivity extends FragmentActivity {
     }
 
     private void displayUser(User user) {
+        // TODO(ipince): move away from here.
         getActionBar().setTitle("@" + user.handle);
         ImageLoader.getInstance().displayImage(user.profileImageUrl, ivProfileImage);
         tvName.setText(user.name);
