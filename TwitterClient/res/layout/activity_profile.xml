@@ -64,9 +64,8 @@
         
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/frg_user_timeline"
-        android:name="com.ipince.android.twitter.fragment.UserTimelineFragment"
+    <FrameLayout
+        android:id="@+id/frm_timeline_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -2,14 +2,18 @@ package com.ipince.android.twitter.activity;
 
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.TwitterClientApp;
+import com.ipince.android.twitter.fragment.UserTimelineFragment;
 import com.ipince.android.twitter.model.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,6 +26,8 @@ public class ProfileActivity extends FragmentActivity {
     private TextView tvFollowers;
     private TextView tvFollowing;
 
+    private UserTimelineFragment frgUserTimeline;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +39,35 @@ public class ProfileActivity extends FragmentActivity {
         tvFollowers = (TextView) findViewById(R.id.tv_followers);
         tvFollowing = (TextView) findViewById(R.id.tv_following);
 
-        TwitterClientApp.getRestClient().getUser("reipince", new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject json) {
-                User user = new User(json);
-                displayUser(user);
-            }
+        Intent i = getIntent();
+        if (i.hasExtra("user")) {
+            User user = (User) i.getSerializableExtra("user");
+            displayUser(user);
 
-            @Override
-            public void onFailure(Throwable throwable, JSONObject json) {
-                // TODO(ipince): implement.
-                Log.e("ProfileActivity", "Failed to get user details", throwable);
-            }
-        });
+            frgUserTimeline = UserTimelineFragment.newInstance(user.handle);
+        } else {
+            // TODO(ipince): change to verify credentials
+            TwitterClientApp.getRestClient().getUser("reipince", new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(JSONObject json) {
+                    User user = new User(json);
+                    displayUser(user);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable, JSONObject json) {
+                    Log.e("ProfileActivity", "Failed to get user details", throwable);
+                }
+            });
+
+            frgUserTimeline = new UserTimelineFragment();
+        }
+
+        // Attach fragment.
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fts = manager.beginTransaction();
+        fts.replace(R.id.frm_timeline_container, frgUserTimeline);
+        fts.commit();
     }
 
     private void displayUser(User user) {

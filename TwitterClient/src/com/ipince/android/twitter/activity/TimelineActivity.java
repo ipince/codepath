@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.fragment.MentionsFragment;
@@ -79,6 +78,13 @@ public class TimelineActivity extends FragmentActivity implements ProfileImageLi
         startActivity(i);
     }
 
+    @Override
+    public void onProfileImageClick(User user) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("user", user);
+        startActivity(i);
+    }
+
     private TabListener getTabListenerFor(final Fragment fragment) {
         return new TabListener() {
             @Override
@@ -95,10 +101,5 @@ public class TimelineActivity extends FragmentActivity implements ProfileImageLi
             @Override
             public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
         };
-    }
-
-    @Override
-    public void onProfileImageClick(User user) {
-        Toast.makeText(this, "clicked on " + user.handle, Toast.LENGTH_SHORT).show();
     }
 }

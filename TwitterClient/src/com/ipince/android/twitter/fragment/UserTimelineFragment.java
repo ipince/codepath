@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,10 +16,29 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class UserTimelineFragment extends TweetListFragment {
 
+    public static UserTimelineFragment newInstance(String handle) {
+        UserTimelineFragment fragment = new UserTimelineFragment();
+        Bundle args = new Bundle();
+        args.putString("handle", handle);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private String handle;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            handle = getArguments().getString("handle");
+        }
+    }
+
     @Override
     protected void fetchTweets(Long maxId, final boolean clear) {
         TwitterClient client = TwitterClientApp.getRestClient();
-        client.getUserTimeline(maxId, new JsonHttpResponseHandler() {
+        client.getUserTimeline(handle, maxId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
                 List<Tweet> tweets = Tweet.fromJson(json);
