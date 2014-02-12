@@ -1,9 +1,14 @@
 package com.ipince.android.twitter.widget;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,8 +50,18 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 
         TextView nameView = (TextView) view.findViewById(R.id.tv_tweet_name);
         // TODO(ipince): format nicely.
+
+        String time = "";
+        try {
+            Date creationDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH).parse(tweet.getCreatedAt());
+            time = DateUtils.getRelativeTimeSpanString(creationDate.getTime(), new Date().getTime(),
+                    DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
+        } catch (ParseException e) {
+            time = tweet.getCreatedAt();
+        }
+
         String formattedHeadline = "<b>" + tweet.getUser().name + "</b> <small><font color=#777777>@"
-                + tweet.getUser().handle + " - " + tweet.getCreatedAt() + "</font></small>";
+                + tweet.getUser().handle + " - " + time + "</font></small>";
         nameView.setText(Html.fromHtml(formattedHeadline));
 
         TextView bodyView = (TextView) view.findViewById(R.id.tv_tweet_body);
