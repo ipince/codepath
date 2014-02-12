@@ -11,14 +11,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.fragment.MentionsFragment;
 import com.ipince.android.twitter.fragment.TimelineFragment;
 import com.ipince.android.twitter.fragment.TweetListFragment;
 import com.ipince.android.twitter.model.Tweet;
+import com.ipince.android.twitter.model.User;
+import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
 
-public class TimelineActivity extends FragmentActivity {
+public class TimelineActivity extends FragmentActivity implements ProfileImageListener {
 
     public static final int REQ_CODE_COMPOSE_TWEET = 1;
 
@@ -30,6 +33,9 @@ public class TimelineActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         setupTabs();
+
+        frgTweetList.setProfileImageListener(this);
+        frgMentions.setProfileImageListener(this);
     }
 
     private void setupTabs() {
@@ -89,5 +95,10 @@ public class TimelineActivity extends FragmentActivity {
             @Override
             public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
         };
+    }
+
+    @Override
+    public void onProfileImageClick(User user) {
+        Toast.makeText(this, "clicked on " + user.handle, Toast.LENGTH_SHORT).show();
     }
 }

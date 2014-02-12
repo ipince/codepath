@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.ipince.android.twitter.R;
 import com.ipince.android.twitter.model.Tweet;
 import com.ipince.android.twitter.widget.EndlessScrollListener;
 import com.ipince.android.twitter.widget.TweetArrayAdapter;
+import com.ipince.android.twitter.widget.TweetArrayAdapter.ProfileImageListener;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
@@ -21,24 +22,33 @@ public abstract class TweetListFragment extends Fragment {
 
     protected PullToRefreshListView lvTweets;
 
-    private ArrayAdapter<Tweet> adapter;
+    private ProfileImageListener listener;
+    private TweetArrayAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.e("Fragment", "onCreate()");
         super.onCreate(savedInstanceState);
+        adapter = new TweetArrayAdapter(getActivity(), new ArrayList<Tweet>());
+        // HACK HACK. See note below.
+        if (listener != null) {
+            adapter.setProfileImageListener(listener);
+        }
+        // End HACK.
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Log.e("Fragment", "onCreateView()");
         // TODO(ipince): get views.
         return inflater.inflate(R.layout.fragment_tweet_list, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        Log.e("Fragment", "onActivityCrated()");
         super.onActivityCreated(savedInstanceState);
-        adapter = new TweetArrayAdapter(getActivity(), new ArrayList<Tweet>());
 
         // TODO(ipince): move to interface.
         lvTweets = (PullToRefreshListView) getActivity().findViewById(R.id.lv_tweets);
@@ -67,9 +77,31 @@ public abstract class TweetListFragment extends Fragment {
         fetchTweets(null, true);
     }
 
-    public ArrayAdapter<Tweet> getAdapter() {
+    public TweetArrayAdapter getAdapter() {
         return adapter;
     }
+
+    // HACK!! HACK!!
+    // NOTE(ipince): had to add this nasty method to have the parent activity
+    // set itself as a listener on the adapter. Ideally, the parent activity
+    // would just call getAdapter().setProfileImageListener() itself, but I
+    // couldn't find a place in the Activity at which point the fragment's
+    // onCreate() method had already been called (where the adapter is constructed).
+    // Ideas for alternative solutions? I really don't want my adapter to have
+    // to know about Activities; doesn't seem like modular design to me. In addition,
+    // I don't want my adapter inside the ProfileActivity to launch a new ProfileActivity
+    // when the user clicks on his own profile image, so I want to be able to have an adapter
+    // with no listener.
+    // Note that this solution could lead to a race condition, so we should probably
+    // synchronize the method. My Android threading model is unclear though (can Fragment.onCreate()
+    // and Activity.onCreate() be called in separate threads?), so I skipped that.
+    public void setProfileImageListener(ProfileImageListener listener) {
+        this.listener = listener;
+        if (adapter != null) {
+            adapter.setProfileImageListener(listener);
+        }
+    }
+    // End HACK.
 
     protected abstract void fetchTweets(Long maxId, boolean clear);
 }
